@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="awsm.min.css">
+    <title>сайтик с 3д моделями</title>
+</head>
+<body>
+    <main>
+        <h1>Тут будет сайт с 3D-моделями</h1>
+        <h2>Обрабатываемые запросы</h2>
+        <ul>
+            <li>
+                GET-запрос на корневой путь '/' возвращает отсылает к этой странице
+            </li>
+            <li>
+                GET-запрос на путь '/v1' возвращает приветствие
+            </li>
+            <li>
+                GET-запрос на '/v1/stats' возвращает небольшой фрагмент в виде html таблицы, где в одной колонке user-agent, а во второй количество запросов.
+            </li>
+            <li>
+                GET-запрос на '/v1/dbcomments' возвращает все документы из колллекции в базе данных
+            </li>
+            <li>
+                GET-запрос на '/v1/dbcommets/6452bb711b3070922cca8879' возвращает жокумент из базы данных с таким id
+            </li>
+            <li>
+                POST-запрос на '/comments' возвращает данные из комментария в http-файле
+            </li>
+            <li>
+                POST-запрос на '/v1/author?apiKey=getauthorised' возвращает ответ, что авторизация прошла успешно
+            </li>
+            <li>
+                POST-запрос на '/v1/login' возвращает приветствие с именем пользователя
+            </li>
+            <li>
+                POST-запрос на '/v1/dbcomments' добавляет в коллекцию базы данных документ
+            </li>
+        </ul>
+        <img src="model.png" width="500" height="350"/>
+    </main>
+</body>
+</html>
