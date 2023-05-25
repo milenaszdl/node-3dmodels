@@ -19,13 +19,13 @@ app.use(express.static('public'));
 
 app.use('/router', restApi);
 
-// app.use((req,res) => {
-//     res.status(400);
-//     res.json({
-//         status:"Error",
-//         message: "Bad request"
-//     })
-// })
+app.use((req,res) => {
+    res.status(400);
+    res.json({
+        status:"Error",
+        message: "Bad request"
+    })
+})
 
 app.listen(port, host, () => {
     console.log(`Server is on. http://${host}:${port}`);

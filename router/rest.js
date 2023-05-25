@@ -13,5 +13,8 @@ const jsonParser = bodyParser.json({
 });
 
 router.get("/models", modelsController.getAllModels);
+router.get("/models/:id", modelsController.getOneModel);
+router.delete("/models/:id", modelsController.deleteOneModel);
+router.post("/api", modelsController.postApi);
 
 module.exports = router;
