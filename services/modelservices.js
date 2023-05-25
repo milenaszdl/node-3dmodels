@@ -28,6 +28,12 @@ async function deleteModel(id){
   return result;
 }
 
+//вспомогательная функция для авторизации по ключу и проверок
+async function finduserbyid(id){
+  const result = await keycollection.findOne({ _id: new ObjectId(id) });
+  return result;
+}
+
 async function findapikey(name){
   const keybyname = await keycollection.findOne({username: name});
   if(keybyname){
@@ -42,9 +48,16 @@ async function findapikey(name){
   }
 }
 
+async function deleteapikey(id){
+  const result = await keycollection.deleteOne({ _id: new ObjectId(id) });
+  return result;
+}
+
 module.exports = {
   findAllModels,
   findOneModel,
   deleteModel,
+  finduserbyid,
   findapikey,
+  deleteapikey,
 };

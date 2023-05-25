@@ -23,7 +23,7 @@ app.use((req,res) => {
     res.status(400);
     res.json({
         status:"Error",
-        message: "Bad request"
+        message: "Bad request. Route does not exist"
     })
 })
 

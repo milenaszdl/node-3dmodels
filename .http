@@ -15,3 +15,7 @@ Content-Type: application/json
 {
     "username": "Sveta"
 }
+
+###
+DELETE /router/deletekey?APIkey=646ff01da510404765153e28 HTTP/1.1
+Host: 127.0.0.1:5500

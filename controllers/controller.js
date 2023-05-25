@@ -52,7 +52,7 @@ async function postApi(req,res,next){
         const {username} = req.body;
         if (username===null) {
             const error = new Error('u dont have username parameter in your request');
-            error.status = 404;
+            error.status = 400;
             throw error;
         }
         else {
@@ -65,9 +65,30 @@ async function postApi(req,res,next){
     }
 }
 
+async function deleteOneApiKey(req,res,next){
+    try{
+        const deleteid = req.query.APIkey;
+        const check = await modelServices.finduserbyid(deleteid);
+        if (!check) {
+            const err = new Error('no user with such apikey');
+            err.status = 404;
+            throw err;
+        }
+        else {
+            await modelServices.deleteapikey(deleteid);
+            res.send('user successfully deleted!');
+        }
+    }
+    catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     getAllModels,
     getOneModel,
     deleteOneModel,
     postApi,
+    deleteOneApiKey,
+
 }
