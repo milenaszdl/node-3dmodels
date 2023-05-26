@@ -19,3 +19,40 @@ Content-Type: application/json
 ###
 DELETE /router/deletekey?APIkey=646ff01da510404765153e28 HTTP/1.1
 Host: 127.0.0.1:5500
+
+###
+POST /router/models?APIkey=646e85e64cfbdbd78aa31d70 HTTP/1.1
+Host: 127.0.0.1:5500
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "modelname": "sonnaya model",
+    "modeltype": "cube",
+    "code": ["JSON file"]
+}
+
+###
+POST /router/models HTTP/1.1
+Host: 127.0.0.1:5500
+Content-Type: application/json
+
+{
+    "username": 54,
+    "modelname": "sonnaya model",
+    "modeltype": "cube",
+    "code": ["JSON file"]
+}
+
+###
+GET /router/models HTTP/1.1
+Host: 127.0.0.1:5500
+Content-Type: text/html
+
+###
+GET /router/models/647091308e0e9c5360afdbf7 HTTP/1.1
+Host: 127.0.0.1:5500
+
+###
+DELETE /router/models/6470913a8e0e9c5360afdbf9 HTTP/1.1
+Host: 127.0.0.1:5500

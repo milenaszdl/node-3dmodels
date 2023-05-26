@@ -17,5 +17,6 @@ router.get("/models/:id", modelsController.getOneModel);
 router.delete("/models/:id", modelsController.deleteOneModel);
 router.post("/api", modelsController.postApi);
 router.delete("/deletekey", modelsController.deleteOneApiKey);
+router.post("/models", modelsController.addModel);
 
 module.exports = router;

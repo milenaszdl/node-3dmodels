@@ -53,6 +53,15 @@ async function deleteapikey(id){
   return result;
 }
 
+async function addModel(model) {
+  try {
+      return modelcollection.insertOne(model);
+  }
+  catch (err) {
+      throw err;
+  }
+}
+
 module.exports = {
   findAllModels,
   findOneModel,
@@ -60,4 +69,5 @@ module.exports = {
   finduserbyid,
   findapikey,
   deleteapikey,
+  addModel,
 };

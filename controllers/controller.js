@@ -7,7 +7,7 @@ const jsonParser = bodyParser.json({
 });
 
 async function getAllModels(req, res) {
-    let allModels = await modelServices.findComments();
+    let allModels = await modelServices.findAllModels();
     res.json(allModels);
 }
 
@@ -32,7 +32,8 @@ async function getOneModel(req,res,next){
 async function deleteOneModel(req,res,next){
     try{
         const id = req.params.id;
-        if (!ObjectId.isValid(id)) {
+        let findtodel = await modelServices.findOneModel(id);
+        if (!findtodel) {
             const err = new Error('no model with such id');
             err.status = 404;
             throw err;
@@ -84,11 +85,87 @@ async function deleteOneApiKey(req,res,next){
     }
 }
 
+//вспомогательная функция
+async function signin(id){
+    const check = await modelServices.finduserbyid(userid);
+        if (!check){
+            const err = new Error ("no user with such apikey");
+            return err;
+        }
+}
+
+async function addModel(req, res, next) {
+    userid = req.query.APIkey;
+    const authorisationerror = await signin(userid);
+    if (authorisationerror){
+        const err = new Error ("no user with such apikey");
+        err.status=400;
+        next(err);
+    }
+
+    const modeldata = req.body;
+    //проверка жесть
+    try {
+        if (!modeldata){
+            const err = new Error ("u didnt send any model data (");
+            err.status=400;
+            throw(err);
+        } else {
+            if (!modeldata.username || typeof modeldata.username !== "string") {
+                const err = new Error ("wrong username parameter");
+                err.status=400;
+                throw(err);
+            } else if (!modeldata.modelname || typeof modeldata.modelname !== "string") {
+                const err = new Error ("wrong modelname parameter");
+                err.status=400;
+                throw(err);
+            } else if (!modeldata.modeltype || typeof modeldata.modeltype !== "string") {
+                const err = new Error ("wrong modeltype parameter");
+                err.status=400;
+                throw(err);
+            }
+        }
+    }
+    catch(err) {
+        next(err);
+    }
+
+    const newModelData = {...modeldata};
+    //добавляем описаниеи комментраии если их нет
+    if (!newModelData.description){
+        newModelData.description = "new model";
+    }
+
+    if(!newModelData.comments){
+        newModelData.comments = ["hi bish", " guys ive created new model"];
+    }
+
+    const date = new Date();
+    newModelData.creationdate = date;
+    newModelData.lastchange = date;
+
+    try {
+        const result = await modelServices.addModel(newModelData);
+        if (result) {
+            res.send('model has been added!');
+        }
+        else {
+            const err = new Error("server could not add the model");
+            err.status = 501;
+            next(err);
+        }
+    }
+    catch (err) {
+        next(err);
+    }
+}
+
+
 module.exports = {
     getAllModels,
     getOneModel,
     deleteOneModel,
     postApi,
     deleteOneApiKey,
-
+    addModel,
 }
