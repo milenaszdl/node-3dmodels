@@ -62,6 +62,12 @@ async function addModel(model) {
   }
 }
 
+async function updateModel(modelid, newmodeldata) {
+  return await modelcollection.updateOne({_id: new ObjectId(modelid)}, {
+    $set: newmodeldata
+  });
+}
+
 module.exports = {
   findAllModels,
   findOneModel,
@@ -70,4 +76,5 @@ module.exports = {
   findapikey,
   deleteapikey,
   addModel,
+  updateModel,
 };

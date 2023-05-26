@@ -56,3 +56,15 @@ Host: 127.0.0.1:5500
 ###
 DELETE /router/models/6470913a8e0e9c5360afdbf9 HTTP/1.1
 Host: 127.0.0.1:5500
+
+###
+POST /router/models/64709301d1379f231a817412?APIkey=646e85e64cfbdbd78aa31d70 HTTP/1.1
+Host: 127.0.0.1:5500
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "modelname": "upd model",
+    "modeltype": "pyramid",
+    "code": ["JSON file"]
+}

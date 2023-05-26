@@ -160,6 +160,71 @@ async function addModel(req, res, next) {
     }
 }
 
+async function updateModel(req, res, next){
+    userid = req.query.APIkey;
+    const authorisationerror = await signin(userid);
+    if (authorisationerror){
+        const err = new Error ("no user with such apikey");
+        err.status=400;
+        next(err);
+    }
+
+    const modelid = req.params.id;
+
+    let findtoupd = await modelServices.findOneModel(modelid);
+    if (!findtoupd) {
+        const err = new Error('no model with such id');
+        err.status = 404;
+        throw err;
+    }
+
+    const modeldata = req.body;
+
+    try {
+        if (!modeldata){
+            const err = new Error ("u didnt send any model data (");
+            err.status=400;
+            throw(err);
+        } else {
+            if (!modeldata.username || typeof modeldata.username !== "string") {
+                const err = new Error ("wrong username parameter");
+                err.status=400;
+                throw(err);
+            } else if (!modeldata.modelname || typeof modeldata.modelname !== "string") {
+                const err = new Error ("wrong modelname parameter");
+                err.status=400;
+                throw(err);
+            } else if (!modeldata.modeltype || typeof modeldata.modeltype !== "string") {
+                const err = new Error ("wrong modeltype parameter");
+                err.status=400;
+                throw(err);
+            }
+        }
+    }
+    catch(err) {
+        next(err);
+    }
+
+    const updmodeldata = {...modeldata};
+
+    updmodeldata.lastchange = new Date();
+
+    try {
+        const result = await modelServices.updateModel(modelid, updmodeldata);
+        if (result) {
+            res.send('model has been updated!');
+        }
+        else {
+            const err = new Error("server could not update the model");
+            err.status = 501;
+            next(err);
+        }
+    }
+    catch (err) {
+        next(err);
+    }
+}
+
 
 module.exports = {
     getAllModels,
@@ -168,4 +233,5 @@ module.exports = {
     postApi,
     deleteOneApiKey,
     addModel,
+    updateModel,
 }
