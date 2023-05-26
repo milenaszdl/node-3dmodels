@@ -27,6 +27,12 @@ app.use((req,res) => {
     })
 })
 
+app.use((err,req,res,next)=> {
+    console.log(err);
+    res.status(err.status);
+    res.send(err.message);
+})
+
 app.listen(port, host, () => {
     console.log(`Server is on. http://${host}:${port}`);
 })

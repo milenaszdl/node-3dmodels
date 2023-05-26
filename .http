@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE /router/deletekey?APIkey=646ff01da510404765153e28 HTTP/1.1
+DELETE /router/deletekey?APIkey=6470c47c0f00c88b4dfc4422 HTTP/1.1
 Host: 127.0.0.1:5500
 
 ###
@@ -50,7 +50,7 @@ Host: 127.0.0.1:5500
 Content-Type: text/html
 
 ###
-GET /router/models/647091308e0e9c5360afdbf7 HTTP/1.1
+GET /router/models/64709301d1379f231a817412 HTTP/1.1
 Host: 127.0.0.1:5500
 
 ###
@@ -58,7 +58,7 @@ DELETE /router/models/6470913a8e0e9c5360afdbf9 HTTP/1.1
 Host: 127.0.0.1:5500
 
 ###
-POST /router/models/64709301d1379f231a817412?APIkey=646e85e64cfbdbd78aa31d70 HTTP/1.1
+PUT /router/models/6470c4ab0f00c88b4dfc4423?APIkey=646e85e64cfbdbd78aa31d70 HTTP/1.1
 Host: 127.0.0.1:5500
 Content-Type: application/json
 

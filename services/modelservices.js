@@ -14,7 +14,7 @@ connectToMongoDB() //пример промиса
 console.log(db);
 
 async function findAllModels() {
-    const result = await modelcollection.find();
+    const result = await modelcollection.find({}, {projection:{modelname:1}});
     return result.toArray();
 }
 

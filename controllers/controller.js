@@ -127,7 +127,7 @@ async function addModel(req, res, next) {
         }
     }
     catch(err) {
-        next(err);
+        return next(err);
     }
 
     const newModelData = {...modeldata};
