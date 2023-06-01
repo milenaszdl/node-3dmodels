@@ -30,6 +30,13 @@ async function getOneModel(req,res,next){
 }
 
 async function deleteOneModel(req,res,next){
+    userid = req.query.APIkey;
+    const authorisationerror = await signin(userid);
+    if (authorisationerror){
+        const err = new Error ("no user with such apikey");
+        err.status=400;
+        next(err);
+    }
     try{
         const id = req.params.id;
         let findtodel = await modelServices.findOneModel(id);
