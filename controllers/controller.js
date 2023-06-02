@@ -34,7 +34,7 @@ async function deleteOneModel(req,res,next){
     const authorisationerror = await signin(userid);
     if (authorisationerror){
         const err = new Error ("no user with such apikey");
-        err.status=400;
+        err.status=401;
         next(err);
     }
     try{
@@ -107,7 +107,7 @@ async function addModel(req, res, next) {
     if (authorisationerror){
         const err = new Error ("no user with such apikey");
         err.status=400;
-        next(err);
+        return next(err);
     }
 
     const modeldata = req.body;
@@ -172,7 +172,7 @@ async function updateModel(req, res, next){
     const authorisationerror = await signin(userid);
     if (authorisationerror){
         const err = new Error ("no user with such apikey");
-        err.status=400;
+        err.status=401;
         next(err);
     }
 

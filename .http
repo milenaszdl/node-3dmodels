@@ -45,16 +45,16 @@ Content-Type: application/json
 }
 
 ###
-GET /router/models HTTP/1.1
+GET /router/allmodels HTTP/1.1
 Host: 127.0.0.1:5500
 Content-Type: text/html
 
 ###
-GET /router/models/64709301d1379f231a817412 HTTP/1.1
+GET /router/model/6470bb1a60981595b63b2b2c HTTP/1.1
 Host: 127.0.0.1:5500
 
 ###
-DELETE /router/models/6470c4df0f00c88b4dfc4425?APIkey=646e85e64cfbdbd78aa31d70 HTTP/1.1
+DELETE /router/delmodel/64790a03e2e2fa2f6d2483da?APIkey=646e85e64cfbdbd78aa31d70 HTTP/1.1
 Host: 127.0.0.1:5500
 
 ###
