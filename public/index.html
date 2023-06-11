@@ -9,38 +9,23 @@
 </head>
 <body>
     <main>
-        <h1>Тут будет сайт с 3D-моделями</h1>
-        <h2>Обрабатываемые запросы</h2>
-        <ul>
-            <li>
-                GET-запрос на корневой путь '/' возвращает отсылает к этой странице
-            </li>
-            <li>
-                GET-запрос на путь '/v1' возвращает приветствие
-            </li>
-            <li>
-                GET-запрос на '/v1/stats' возвращает небольшой фрагмент в виде html таблицы, где в одной колонке user-agent, а во второй количество запросов.
-            </li>
-            <li>
-                GET-запрос на '/v1/dbcomments' возвращает все документы из колллекции в базе данных
-            </li>
-            <li>
-                GET-запрос на '/v1/dbcommets/6452bb711b3070922cca8879' возвращает жокумент из базы данных с таким id
-            </li>
-            <li>
-                POST-запрос на '/comments' возвращает данные из комментария в http-файле
-            </li>
-            <li>
-                POST-запрос на '/v1/author?apiKey=getauthorised' возвращает ответ, что авторизация прошла успешно
-            </li>
-            <li>
-                POST-запрос на '/v1/login' возвращает приветствие с именем пользователя
-            </li>
-            <li>
-                POST-запрос на '/v1/dbcomments' добавляет в коллекцию базы данных документ
-            </li>
-        </ul>
-        <img src="model.png" width="500" height="350"/>
+        <h1>3D models</h1>
+        <p></p>
+        <form method="post" data-netlify="true" name="usernameform" id="usernameform">
+            <label>Username:
+                <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    placeholder="admin"
+                    required
+                />
+                <button type="submit" id="getapi">Get API key!</button>
+            </label>
+        </form>
+        <p id="gotapikey"></p>
+        <div id="models"></div>
     </main>
+    <script src="fetch.js" defer></script>
 </body>
 </html>
