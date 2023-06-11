@@ -1,4 +1,5 @@
 const apibutton = document.getElementById("getapi");
+const allmodelsbutton = document.getElementById("showmodels");
 
 async function postAPIKey() {
     const username = document.getElementById('username').value;
@@ -20,6 +21,46 @@ async function postAPIKey() {
         console.log(response);
     }
 }
+
+function getAllModels() {
+    const table = document.getElementById("tablemodels");
+    fetch('/router/allmodels')
+        .then((response) => {
+            console.log(response);
+            return response.json();
+        })
+        .then((data) => {
+            console.log("models", data);
+            if (data.length == 0) {
+                const tr = document.createElement("tr");
+                const td = document.createElement("td");
+                td.innerText = "No models in database yet";
+                tr.appendChild(td);
+                table.appendChild(tr);
+                return;
+            }
+            if (table.getElementsByTagName('tr').length < data.length){
+                data.forEach((element) => {
+                    const tr = document.createElement("tr");
+                    const td1 = document.createElement("td");
+                    const td2 = document.createElement("td");
+                    td1.innerText = "Name: " + element.modelname;
+                    td2.innerText = "ID: " + element._id;
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    table.appendChild(tr);
+                });
+            }
+        })
+        .catch((err) => {
+            console.log("err:", err);
+            alert("Something wrong: couldn't get models (");
+        });
+}
+
+allmodelsbutton.addEventListener("click", (event) => {
+    getAllModels();
+})
 
 apibutton.addEventListener("click", (event) => {
     event.preventDefault();
