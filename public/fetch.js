@@ -5,22 +5,27 @@ const table = document.getElementById("tablemodels");
 
 async function postAPIKey() {
     const username = document.getElementById('username').value;
-    const response = await fetch('/router/api', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ "username": `${username}` })
-    });
-    
-    if (response.ok) {
-        const data = await response.text();
-        document.getElementById('gotapikey').innerText = data;
-        console.log(response);
+    if (username.length!=0){
+        const response = await fetch('/router/api', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "username": `${username}` })
+        });
+        
+        if (response.ok) {
+            const userapikey = await response.json();
+            document.getElementById('gotapikey').innerText = `This user has next apikey: ${userapikey}`;
+            console.log(response);
+            return userapikey;
+        } else {
+            const error = await response.text();
+            document.getElementById('gotapikey').innerText = error;
+            console.log(response);
+        }
     } else {
-        const error = await response.text();
-        document.getElementById('gotapikey').innerText = error;
-        console.log(response);
+        document.getElementById('gotapikey').innerText = "Please enter name";
     }
 }
 
@@ -40,7 +45,14 @@ function getAllModels() {
                 table.appendChild(tr);
                 return;
             }
-            if (table.getElementsByTagName('tr').length < data.length){
+            if (table.getElementsByTagName('tr').length != data.length){
+                //очищаем таблицу перед заполнением новыми данными
+                var rows = table.getElementsByTagName("tr");
+                // Удаляем каждую строку таблицы
+                while (rows.length > 0) {
+                    table.deleteRow(0);
+                }
+
                 data.forEach((element) => {
                     const tr = document.createElement("tr");
                     const td1 = document.createElement("td");
@@ -121,6 +133,11 @@ function OneModelInfo(id){
         });
 }
 
+function DeleteModel(id){
+    const delbykey = postAPIKey().userapikey;
+    console.log(delbykey);
+}
+
 allmodelsbutton.addEventListener("click", (event) => {
     getAllModels();
 })
@@ -131,7 +148,7 @@ refreshmodels.addEventListener("click", (event) => {
 
 apibutton.addEventListener("click", (event) => {
     event.preventDefault();
-    postAPIKey();
+    return postAPIKey();
 })
 
 
@@ -139,5 +156,9 @@ table.addEventListener("click", (event) => {
     const showmodel = event.target.closest(".showbutt");
     if (showmodel){
         OneModelInfo(showmodel.dataset.id);
+    }
+    const delmodel = event.target.closest(".delbutt");
+    if (delmodel){
+        DeleteModel(delmodel.dataset.id);
     }
 });

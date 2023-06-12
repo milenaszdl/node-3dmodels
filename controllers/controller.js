@@ -65,7 +65,7 @@ async function postApi(req,res,next){
         }
         else {
             let foundkey = await modelServices.findapikey(username);
-            res.send(`this user has next apikey: ${foundkey}`);
+            res.send(foundkey);
         }
     }
     catch (err) {
