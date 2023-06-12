@@ -27,7 +27,7 @@ Content-Type: application/json
 
 {
     "username": "admin",
-    "modelname": "sonnaya model",
+    "modelname": "new model",
     "modeltype": "cube",
     "code": ["JSON file"]
 }

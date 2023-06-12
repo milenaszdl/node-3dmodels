@@ -2,6 +2,7 @@ const apibutton = document.getElementById("getapi");
 const allmodelsbutton = document.getElementById("showmodels");
 const refreshmodels = document.getElementById("refresh");
 const table = document.getElementById("tablemodels");
+let apikey;
 
 async function postAPIKey() {
     const username = document.getElementById('username').value;
@@ -18,7 +19,7 @@ async function postAPIKey() {
             const userapikey = await response.json();
             document.getElementById('gotapikey').innerText = `This user has next apikey: ${userapikey}`;
             console.log(response);
-            return userapikey;
+            apikey = userapikey;
         } else {
             const error = await response.text();
             document.getElementById('gotapikey').innerText = error;
@@ -133,9 +134,26 @@ function OneModelInfo(id){
         });
 }
 
-function DeleteModel(id){
-    const delbykey = postAPIKey().userapikey;
-    console.log(delbykey);
+async function DeleteModel(id, apikey){
+    if (apikey){
+        if (confirm("Are you sure you want to delete the model?")){
+            console.log("ready for del");
+            try {
+                const response = await fetch(`/router/delmodel/${id}?APIkey=${apikey}`, {
+                    method: 'DELETE',
+                });
+                if (response.ok) {
+                    const deltext = await response.text();
+                    alert(deltext);
+                    getAllModels();
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Could not delete the model");
+        }
+    }}else {
+        alert("Please authorise first");
+    }
 }
 
 allmodelsbutton.addEventListener("click", (event) => {
@@ -148,7 +166,7 @@ refreshmodels.addEventListener("click", (event) => {
 
 apibutton.addEventListener("click", (event) => {
     event.preventDefault();
-    return postAPIKey();
+    postAPIKey();
 })
 
 
@@ -159,6 +177,6 @@ table.addEventListener("click", (event) => {
     }
     const delmodel = event.target.closest(".delbutt");
     if (delmodel){
-        DeleteModel(delmodel.dataset.id);
+        DeleteModel(delmodel.dataset.id, apikey);
     }
 });
